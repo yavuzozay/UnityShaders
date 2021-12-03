@@ -2,10 +2,14 @@
 {
     Properties
     {
+        _ColorA("Color A", Color) = (1,0,0,1)
+        _ColorB("Color B", Color) = (0,0,1,1)
+
     }
-    SubShader
+        SubShader
+        
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType" = "Opaque" }
         LOD 100
 
         Pass
@@ -14,12 +18,18 @@
             #pragma vertex vert_img
             #pragma fragment frag
 
+
             #include "UnityCG.cginc"
 
-            fixed4 frag (v2f_img i) : SV_Target
+            fixed4 _ColorA;
+            fixed4 _ColorB;
+            
+            
+            fixed4 frag(v2f_img i) : SV_Target
             {
-                fixed3 color = 1;
-                return fixed4(color, 1.0);
+                float delta = sin(_Time.y) + 1 / 2;
+                fixed3 color = lerp(_ColorA, _ColorB, delta);
+                return fixed4(color,1);
             }
             ENDCG
         }

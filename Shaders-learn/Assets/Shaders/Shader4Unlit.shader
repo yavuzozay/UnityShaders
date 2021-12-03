@@ -1,4 +1,4 @@
-﻿Shader "NiksShaders/Shader4Unlit"
+﻿Shader "YavuzsShaders/Shader4Unlit"
 {
     Properties
     {
@@ -20,11 +20,15 @@
 
             fixed4 _ColorA;
             fixed4 _ColorB;
-
+           
             fixed4 frag (v2f_img i) : SV_Target
             {
-                fixed3 color = 1;
+               // float delta=i.uv.x;
+                float delta=i.uv.y;
+                //float deltaY=i.uv.y;
+                fixed3 color=lerp(_ColorA,_ColorB,delta);
                 return fixed4(color, 1.0);
+                
             }
             ENDCG
         }
